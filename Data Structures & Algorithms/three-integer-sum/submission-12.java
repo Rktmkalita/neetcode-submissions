@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> set = new HashSet<>();
+        for(int i=0;i<nums.length;i++){
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            Map<Integer, Integer> map = new HashMap<>();
+            map.put(nums[i],i);
+            for(int j=i+1;j<nums.length;j++){
+                int sum = nums[i]+nums[j];
+                if(map.containsKey(-sum)){
+                    if(map.get(-sum)!=i && map.get(-sum)!=j){
+                        List<Integer> list = new ArrayList<>(List.of(nums[i],nums[j],-sum));
+                        Collections.sort(list);
+                        set.add(list);
+                    }
+                }
+                map.put(nums[j],j);
+            }
+        }
+        return List.copyOf(set);
+    }
+}
